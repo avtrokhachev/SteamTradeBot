@@ -22,7 +22,7 @@ class Database:
 
     async def create_database(self):
         async with self.db.acquire() as con:
-            await con.execute("""
+            await con.execute('''
             CREATE TABLE IF NOT EXISTS items( 
             link TEXT PRIMARY KEY,
             name TEXT NOT NULL,
@@ -33,7 +33,7 @@ class Database:
             buy_orders INTEGER NOT NULL,
             sell_orders INTEGER NOT NULL
             )
-            """)
+            ''')
 
     async def have_item(self, con: asyncpg.Connection, item: MarketItem) -> bool:
         cur_item = await con.fetchrow("""

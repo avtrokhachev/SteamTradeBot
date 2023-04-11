@@ -6,6 +6,8 @@ import typing as tp
 
 import bs4
 
+COMMISION = 0.13
+
 
 @dataclass
 class MarketItem:
@@ -35,13 +37,15 @@ class MarketItem:
         return self.link, self.name, self.game_name, self.game_id, self.buy_price, self.sell_price, self.buy_orders,\
             self.sell_orders
 
-    def get_worth(self) -> float:
-        commision = 0.13
-        total_earn = self.sell_price * (1 - commision) - self.buy_price
+    def get_worth(self) -> tp.Optional[float]:
+        if not self.buy_orders or not self.sell_orders or not self.buy_price or not self.sell_price:
+            raise Exception(f"Order {self.link} wasn't filled with info before get_worth action")
+
+        total_earn = self.sell_price * (1 - COMMISION) - self.buy_price
         if total_earn <= 0.5 or total_earn / self.buy_price < 0.1:
-            return -1
+            return None
         if self.buy_orders < self.sell_orders * 8:
-            return -1
+            return None
         return total_earn / self.buy_price
 
     def __copy__(self):
