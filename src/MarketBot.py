@@ -1,12 +1,12 @@
 from configparser import SectionProxy
 
-from Parser import Parser
+from src.Parser import Parser
 
-from Database import Database
+from src.Database import Database
 
 import typing as tp
 
-from MarketItem import MarketItem
+from src.MarketItem import MarketItem
 
 
 class MarketBot:

@@ -12,9 +12,9 @@ import bs4
 
 import logging
 
-from MarketItem import MarketItem
+from src.MarketItem import MarketItem
 
-from functions import convert_to_dollars
+from src.functions import convert_to_dollars
 
 
 class Parser:
